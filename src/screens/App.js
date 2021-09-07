@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import {
   timeConverter,
   addCommasToNumber,
+  daysAgo,
 } from "../functions/general.functions";
 
 const thumbsUp =
@@ -27,40 +28,8 @@ const thumbsDown =
   "https://store.akamai.steamstatic.com/public/shared/images/userreviews/icon_thumbsDown_v6.png";
 
 function App() {
-  const [game_id, setGame_id] = useState(730);
-  const [gameData, setGameData] = useState({
-    time_taken: 533.793,
-    created: "2021-09-07T13:29:57.503Z",
-    updated: "2021-09-07T13:29:57.503Z",
-    number_of_reviews: 53000,
-    _id: "613769550cf6eba1a46877d7",
-    gameId: 730,
-    review: {
-      recommendationid: "95720752",
-      author: {
-        steamid: "76561197994737486",
-        num_games_owned: 8,
-        num_reviews: 1,
-        playtime_forever: 1168316,
-        playtime_last_two_weeks: 12268,
-        playtime_at_review: 1131318,
-        last_played: 1630980540,
-      },
-      language: "english",
-      review: "give me skin",
-      timestamp_created: 1626265192,
-      timestamp_updated: 1626265192,
-      voted_up: true,
-      votes_up: 1,
-      votes_funny: 1,
-      weighted_vote_score: "0.523809552192687988",
-      comment_count: 0,
-      steam_purchase: true,
-      received_for_free: false,
-      written_during_early_access: false,
-    },
-    __v: 0,
-  });
+  const [game_id, setGame_id] = useState(1229490);
+  const [gameData, setGameData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const searchForGame = async () => {
@@ -94,20 +63,18 @@ function App() {
       <Divider hidden />
       {gameData ? (
         <Container text>
-          <Menu inverted>
-            <Menu.Menu position="left">
-              <Menu.Item>
-                {addCommasToNumber(gameData.number_of_reviews)} reviews
-                searched
-              </Menu.Item>
-            </Menu.Menu>
-            <Menu.Menu position="right">
-              <Menu.Item>
-                {`${addCommasToNumber(
-                  Math.round(gameData.time_taken / 60)
-                )} minutes spend searching`}
-              </Menu.Item>
-            </Menu.Menu>
+          <Menu inverted fluid widths="3">
+            <Menu.Item>
+              {addCommasToNumber(gameData.number_of_reviews)} reviews searched
+            </Menu.Item>
+            <Menu.Item>
+              {`${addCommasToNumber(
+                Math.round(gameData.time_taken / 60)
+              )} minutes spend searching`}
+            </Menu.Item>
+            <Menu.Item>
+              {`last updated ${daysAgo(new Date(gameData.created))}`}
+            </Menu.Item>
           </Menu>
           <Segment inverted>
             <div>
