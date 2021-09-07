@@ -4,7 +4,7 @@ export const getReview = async (id) => {
   // Get the review data
   try {
     const review_res = await api.request({
-      url: `/reviews/${id}`,
+      url: "/review",
       data: {
         game_id: id,
       },
